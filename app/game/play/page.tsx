@@ -6,7 +6,7 @@ import "../../../styles/game.css";
 
 const PlayGame = () => {
   const searchParams = useSearchParams();
-  const [gameData, setGameData] = useState<any>(null); // Adjust the type as needed
+  const [gameData, setGameData] = useState<any>(null);
   const [team1Score, setTeam1Score] = useState<number>(0);
   const [team2Score, setTeam2Score] = useState<number>(0);
   const [currentPlayer, setCurrentPlayer] = useState<string | null>(null);
@@ -17,6 +17,9 @@ const PlayGame = () => {
   const [currentConstraint, setCurrentConstraint] = useState<string | null>(null);
   const [storyImages, setStoryImages] = useState<string[]>([]);
   const [constraints, setConstraints] = useState<any[]>([]);
+  const [isReady, setIsReady] = useState<boolean>(false);
+  const [storyFlipped, setStoryFlipped] = useState<boolean>(false);
+  const [constraintFlipped, setConstraintFlipped] = useState<boolean>(false);
 
   useEffect(() => {
     const gameDataString = searchParams.get('gameData');
@@ -26,21 +29,17 @@ const PlayGame = () => {
         setGameData(parsedGameData);
         setTeam1Score(parsedGameData.team1Score);
         setTeam2Score(parsedGameData.team2Score);
-
-        // Start with the first player from Team 1
         setCurrentPlayer(parsedGameData.teams.team1[0]);
       } catch (error) {
         console.error('Error parsing game data:', error);
       }
     }
 
-    // Fetch story images from the API
     fetch('/api/story-cards')
       .then((response) => response.json())
       .then((data) => setStoryImages(data))
       .catch((error) => console.error('Error fetching story images:', error));
 
-    // Fetch constraints from the API
     fetch('/api/constraints')
       .then((response) => response.json())
       .then((data) => setConstraints(data))
@@ -48,35 +47,41 @@ const PlayGame = () => {
   }, [searchParams]);
 
   const handleReadyClick = () => {
-    // Randomly select a story image
     const randomStory = storyImages[Math.floor(Math.random() * storyImages.length)];
-
-    // Randomly select a constraint
     const randomConstraint = constraints[Math.floor(Math.random() * constraints.length)].text;
 
     setCurrentStory(randomStory);
     setCurrentConstraint(randomConstraint);
+    setIsReady(true);
   };
 
-  if (!gameData) return <div>Loading...</div>;
+  const handleCardClick = (cardType: 'story' | 'constraint') => {
+    if (cardType === 'story') {
+      setStoryFlipped(true);
+    } else if (cardType === 'constraint') {
+      setConstraintFlipped(true);
+    }
+  };
+
+  if (!gameData || !storyImages.length || !constraints.length) return <div>Loading...</div>;
 
   return (
     <div className="gameplay-container">
       <header className="game-header">
         <div className="teams-display flex space-x-16 player-list">
-          <div className="team">
+          <div className={`team ${currentTeam === "team1" ? "highlighted" : ""}`}>
             <h2>Team 1</h2>
             <ul>
               {gameData.teams.team1.map((player: string, index: number) => (
-                <li key={index}>{player}</li>
+                <li key={index} className={player === currentPlayer ? "highlighted-player" : ""}>{player}</li>
               ))}
             </ul>
           </div>
-          <div className="team">
+          <div className={`team ${currentTeam === "team2" ? "highlighted" : ""}`}>
             <h2>Team 2</h2>
             <ul>
               {gameData.teams.team2.map((player: string, index: number) => (
-                <li key={index}>{player}</li>
+                <li key={index} className={player === currentPlayer ? "highlighted-player" : ""}>{player}</li>
               ))}
             </ul>
           </div>
@@ -88,14 +93,36 @@ const PlayGame = () => {
         </div>
       </header>
       <div className="gameplay-content">
-        <h1>Game On!</h1>
-        <p>It's {currentPlayer}'s turn from {currentTeam === "team1" ? "Team 1" : "Team 2"}</p>
-        <button className="ready-button" onClick={handleReadyClick}>Ready</button>
-        {currentStory && (
+        {!isReady ? (
+          <>
+            <h1>Game On!</h1>
+            <p>It's {currentPlayer}'s turn from {currentTeam === "team1" ? "Team 1" : "Team 2"}</p>
+            <button className="ready-button" onClick={handleReadyClick}>Ready</button>
+          </>
+        ) : (
           <div className="storyClues">
-            <img src={`/story-cards/${currentStory}`} alt="Story Card" />
-            <p>{currentConstraint}</p>
-            <p>Time to think of a clue!</p>
+            <div className={`flip-card ${storyFlipped ? 'flipped' : ''}`} onClick={() => handleCardClick('story')}>
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <div className="card-back">Story Card</div>
+                </div>
+                <div className="flip-card-back">
+                  <img src={`/story-cards/${currentStory}`} alt="Story Card" className="story-image" />
+                </div>
+              </div>
+            </div>
+            <div className={`flip-card ${constraintFlipped ? 'flipped' : ''}`} onClick={() => handleCardClick('constraint')}>
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <div className="card-back">Constraint Card</div>
+                </div>
+                <div className="flip-card-back">
+                  <div className="constraint-card">
+                    <p className="constraint-text">{currentConstraint}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

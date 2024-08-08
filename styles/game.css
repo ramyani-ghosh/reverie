@@ -96,10 +96,10 @@ input[type="number"] {
   color: black;
 }
 
-/* styles/game.css */
+/* Initial gamne screen */
 
 .gameplay-content {
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .gameplay-container {
@@ -139,4 +139,93 @@ input[type="number"] {
 
 .game-header h2{
   font-weight: 400;
+}
+
+
+.highlighted-player {
+  color: yellow; /* Highlighting current player */
+  font-weight: 500;
+}
+
+
+/* Playing the game */
+
+.storyClues {
+  display: flex;
+  width: 100%;
+  justify-content: space-around; /* Distribute space evenly */
+  gap:40px;
+  align-items: center; /* Center items vertically */
+}
+
+.flip-card {
+  width: 300px;
+  height: 420px;
+  perspective: 1000px; /* Add perspective for 3D effect */
+  cursor: pointer; /* Indicate that the card is clickable */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: red; /* Red background for the front */
+  border-radius: 10px; /* Rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+}
+
+.flip-card-back {
+  background: url('/images/card-bg.jpg') no-repeat center center;
+  background-size: cover; /* Ensure the image covers the card */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: rotateY(180deg);
+}
+
+.story-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px; /* Slightly rounded corners */
+}
+
+.constraint-card {
+  width: 100%;
+  height: 100%;
+  background: url('/images/card-bg.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.constraint-text {
+  font-weight: 300;
+  font-size: 32px;
+  text-align: center;
+  padding: 20px;
+  color: rgb(73, 43, 30);
 }
