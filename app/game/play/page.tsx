@@ -10,6 +10,13 @@ const PlayGame = () => {
   const [team1Score, setTeam1Score] = useState<number>(0);
   const [team2Score, setTeam2Score] = useState<number>(0);
   const [currentPlayer, setCurrentPlayer] = useState<string | null>(null);
+  const [currentTeam, setCurrentTeam] = useState<"team1" | "team2">("team1");
+  const [team1TurnIndex, setTeam1TurnIndex] = useState<number>(0);
+  const [team2TurnIndex, setTeam2TurnIndex] = useState<number>(0);
+  const [currentStory, setCurrentStory] = useState<string | null>(null);
+  const [currentConstraint, setCurrentConstraint] = useState<string | null>(null);
+  const [storyImages, setStoryImages] = useState<string[]>([]);
+  const [constraints, setConstraints] = useState<any[]>([]);
 
   useEffect(() => {
     const gameDataString = searchParams.get('gameData');
@@ -20,16 +27,36 @@ const PlayGame = () => {
         setTeam1Score(parsedGameData.team1Score);
         setTeam2Score(parsedGameData.team2Score);
 
-        // Randomize the current player from Team 1
-        if (parsedGameData.teams.team1.length > 0) {
-          const randomPlayer = parsedGameData.teams.team1[Math.floor(Math.random() * parsedGameData.teams.team1.length)];
-          setCurrentPlayer(randomPlayer);
-        }
+        // Start with the first player from Team 1
+        setCurrentPlayer(parsedGameData.teams.team1[0]);
       } catch (error) {
         console.error('Error parsing game data:', error);
       }
     }
+
+    // Fetch story images from the API
+    fetch('/api/story-cards')
+      .then((response) => response.json())
+      .then((data) => setStoryImages(data))
+      .catch((error) => console.error('Error fetching story images:', error));
+
+    // Fetch constraints from the API
+    fetch('/api/constraints')
+      .then((response) => response.json())
+      .then((data) => setConstraints(data))
+      .catch((error) => console.error('Error fetching constraints:', error));
   }, [searchParams]);
+
+  const handleReadyClick = () => {
+    // Randomly select a story image
+    const randomStory = storyImages[Math.floor(Math.random() * storyImages.length)];
+
+    // Randomly select a constraint
+    const randomConstraint = constraints[Math.floor(Math.random() * constraints.length)].text;
+
+    setCurrentStory(randomStory);
+    setCurrentConstraint(randomConstraint);
+  };
 
   if (!gameData) return <div>Loading...</div>;
 
@@ -62,8 +89,15 @@ const PlayGame = () => {
       </header>
       <div className="gameplay-content">
         <h1>Game On!</h1>
-        <p>It's {currentPlayer}'s turn from Team 1</p>
-        <button className="ready-button">Ready</button>
+        <p>It's {currentPlayer}'s turn from {currentTeam === "team1" ? "Team 1" : "Team 2"}</p>
+        <button className="ready-button" onClick={handleReadyClick}>Ready</button>
+        {currentStory && (
+          <div className="storyClues">
+            <img src={`/story-cards/${currentStory}`} alt="Story Card" />
+            <p>{currentConstraint}</p>
+            <p>Time to think of a clue!</p>
+          </div>
+        )}
       </div>
     </div>
   );
