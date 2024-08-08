@@ -11,7 +11,7 @@ const PlayGame = () => {
   const [team2Score, setTeam2Score] = useState<number>(0);
   const [currentPlayer, setCurrentPlayer] = useState<string | null>(null);
   const [currentTeam, setCurrentTeam] = useState<"team1" | "team2">("team1");
-  const [team1TurnIndex, setTeam1TurnIndex] = useState<number>(0);
+  const [team1TurnIndex, setTeam1TurnIndex] = useState<number>(1);
   const [team2TurnIndex, setTeam2TurnIndex] = useState<number>(0);
   const [currentStory, setCurrentStory] = useState<string | null>(null);
   const [currentConstraint, setCurrentConstraint] = useState<string | null>(null);
@@ -20,12 +20,17 @@ const PlayGame = () => {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [isGuessing, setIsGuessing] = useState<boolean>(false);
   const [guessingCards, setGuessingCards] = useState<string[]>([]);
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [storyFlipped, setStoryFlipped] = useState<boolean>(false);
   const [constraintFlipped, setConstraintFlipped] = useState<boolean>(false);
+  const [seenStoryCards, setSeenStoryCards] = useState<string[]>([]);
+  const [winCondition, setWinCondition] = useState<'points' | 'rounds'>('points');
+  const [pointsToWin, setPointsToWin] = useState<number>(10);
+  const [rounds, setRounds] = useState<number>(15);
+
 
   useEffect(() => {
     const gameDataString = searchParams.get('gameData');
+
     if (gameDataString) {
       try {
         const parsedGameData = JSON.parse(decodeURIComponent(gameDataString));
@@ -34,6 +39,9 @@ const PlayGame = () => {
         setTeam2Score(parsedGameData.team2Score);
         setCurrentPlayer(parsedGameData.teams.team1[0]); // Start with first player of team1
         setCurrentTeam("team1"); // Starting team
+        setWinCondition(parsedGameData.winCondition || 'points');
+        setPointsToWin(parsedGameData.pointsToWin || 10);
+        setRounds(parsedGameData.rounds || 15);
       } catch (error) {
         console.error('Error parsing game data:', error);
       }
@@ -52,8 +60,13 @@ const PlayGame = () => {
 
   // Handle the Ready button click to move to the story phase
   const handleReadyClick = () => {
+
     if (storyImages.length && constraints.length) {
-      const randomStory = storyImages[Math.floor(Math.random() * storyImages.length)];
+      // Filter out already seen story cards
+      const availableStoryImages = storyImages.filter(image => !seenStoryCards.includes(image));
+
+      // Select a random story card from the available ones
+      const randomStory = availableStoryImages[Math.floor(Math.random() * availableStoryImages.length)];
       const randomConstraint = constraints[Math.floor(Math.random() * constraints.length)].text;
 
       setCurrentStory(randomStory);
@@ -61,14 +74,20 @@ const PlayGame = () => {
       setIsReady(true); // Move to story phase
       setStoryFlipped(false); // Reset the story card to unflipped
       setConstraintFlipped(false); // Reset the constraint card to unflipped
+
+      // Add the selected story card to the seenStoryCards list
+      setSeenStoryCards(prevSeen => [...prevSeen, randomStory]);
     }
   };
 
   // Handle the Ready with clue button click to move to the guessing phase
   const handleReadyGuessing = () => {
     if (currentStory && storyImages.length) {
+      // Filter out the currentStory from the storyImages
+      const filteredImages = storyImages.filter((image) => image !== currentStory);
+
       // Prepare guessing cards
-      const shuffledImages = [...storyImages].sort(() => 0.5 - Math.random()).slice(0, 4);
+      const shuffledImages = filteredImages.sort(() => 0.5 - Math.random()).slice(0, 4);
       const cards = [...shuffledImages, currentStory].sort(() => 0.5 - Math.random());
 
       setGuessingCards(cards);
@@ -90,6 +109,16 @@ const PlayGame = () => {
       alert("Wrong!");
     }
 
+    // Check win condition
+    const isGameOver = 
+      (winCondition === 'points' && (team1Score >= pointsToWin || team2Score >= pointsToWin)) ||
+      (winCondition === 'rounds' && team2TurnIndex >= rounds);
+
+    if (isGameOver) {
+      alert(`Game Over! ${team1Score > team2Score ? 'Team 1 wins!' : team1Score < team2Score ? 'Team 2 wins!' : "It's a tie!"}`);
+      return;
+    }
+
     // Move to the next turn
     if (currentTeam === "team1") {
       setCurrentTeam("team2");
@@ -108,6 +137,7 @@ const PlayGame = () => {
     setCurrentConstraint(null);
     setStoryFlipped(false);
     setConstraintFlipped(false);
+
   };
 
   // Handle card flip on click
@@ -150,11 +180,11 @@ const PlayGame = () => {
       </header>
       <div className="gameplay-content">
         {!isReady ? (
-          <>
+          <div>
             <h1>Game On!</h1>
             <p>It's {currentPlayer}'s turn from {currentTeam === "team1" ? "Team 1" : "Team 2"}</p>
             <button className="ready-button" onClick={handleReadyClick}>Ready</button>
-          </>
+          </div>
         ) : isGuessing ? (
           <div className="guessing-section">
             <h2>{currentTeam}, it's time to guess!</h2>

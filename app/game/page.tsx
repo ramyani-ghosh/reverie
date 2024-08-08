@@ -19,7 +19,7 @@ const GamePage = () => {
   const [team2Score, setTeam2Score] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<WinCondition>('points');
   const [pointsToWin, setPointsToWin] = useState<number>(10);
-  const [rounds, setRounds] = useState<number>(15);
+  const [rounds, setRounds] = useState<number>(10);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const handleAddPlayer = () => {
