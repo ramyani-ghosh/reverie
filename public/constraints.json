@@ -1,7 +1,7 @@
 [
     {"id": 1, "text": "A fictional character in a movie"},
     {"id": 2, "text": "A 4 letter word"},
-    {"id": 3, "text": "A food brand name, chain or restaurant"},
+    {"id": 3, "text": "A food item, brand or restaurant"},
     {"id": 4, "text": "A movie or song name"},
     {"id": 5, "text": "A company or corporation"}
 ]
