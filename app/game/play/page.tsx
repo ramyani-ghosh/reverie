@@ -87,7 +87,7 @@ const PlayGame = () => {
       const filteredImages = storyImages.filter((image) => image !== currentStory);
 
       // Prepare guessing cards
-      const shuffledImages = filteredImages.sort(() => 0.5 - Math.random()).slice(0, 4);
+      const shuffledImages = filteredImages.sort(() => 0.5 - Math.random()).slice(0, 5);
       const cards = [...shuffledImages, currentStory].sort(() => 0.5 - Math.random());
 
       setGuessingCards(cards);
@@ -111,7 +111,7 @@ const PlayGame = () => {
 
     // Check win condition
     const isGameOver = 
-      (winCondition === 'points' && (team1Score >= pointsToWin || team2Score >= pointsToWin)) ||
+      (winCondition === 'points' && (team1Score >= pointsToWin-1 || team2Score >= pointsToWin-1)) ||
       (winCondition === 'rounds' && team2TurnIndex >= rounds);
 
     if (isGameOver) {

@@ -2,6 +2,7 @@
 /* Game Setup Screen */
 body{
   background: linear-gradient(0deg, rgb(10, 11, 14), rgb(23, 25, 32), rgb(10, 11, 14));
+  height:300vh;
 }
 
 .input{
@@ -236,19 +237,22 @@ input[type="number"] {
 
 .guessing-section {
   text-align: center;
-  padding: 20px;
+  width:60%;
+  margin-left:20%;
+  margin-top:-100px;
+  /* padding: 20px; */
 }
 
 .guessing-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .guessing-card {
-  width: 250px;
-  height: 330px;
+  width: 230px;
+  height: 320px;
   background: #f1f1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -265,6 +269,7 @@ input[type="number"] {
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .correct-answer {

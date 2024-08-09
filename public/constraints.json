@@ -1,11 +1,12 @@
 [
     {"id": 1, "text": "Name a fictional character in a movie"},
-    {"id": 2, "text": "Say a 4 letter word"},
-    {"id": 3, "text": "Name food item, brand or restaurant"},
-    {"id": 4, "text": "Name movie or tv show"},
-    {"id": 5, "text": "Sing a Song"},
+    {"id": 2, "text": "Make a sound effect without using words"},
+    {"id": 3, "text": "Say a number"},
+    {"id": 4, "text": "Name a nonfictional location on earth"},
+    {"id": 5, "text": "Hum a Song"},
     {"id": 6, "text": "Name a company or corporation"},
-    {"id": 7, "text": "Sing a Song"},
+    {"id": 7, "text": "Use a finger to draw a shape in the air"},
     {"id": 8, "text": "Describe an emotion or feeling"},
-    {"id": 9, "text": "Name a famous person"}
+    {"id": 9, "text": "Make a facial expression"},
+    {"id": 10, "text": "Name a famous person"}
 ]
