@@ -5,8 +5,9 @@
     {"id": 4, "text": "Name a nonfictional location on earth"},
     {"id": 5, "text": "Hum a Song"},
     {"id": 6, "text": "Name a company or corporation"},
-    {"id": 7, "text": "Use a finger to draw a shape in the air"},
+    {"id": 7, "text": "Use your hands to draw a shape in the air"},
     {"id": 8, "text": "Describe an emotion or feeling"},
     {"id": 9, "text": "Make a facial expression"},
-    {"id": 10, "text": "Name a famous person"}
+    {"id": 10, "text": "Name a famous person"},
+    {"id": 11, "text": "Name a beverage"}
 ]
