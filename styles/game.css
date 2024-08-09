@@ -23,6 +23,10 @@ body{
   margin-left: 50px;
 }
 
+.logo-container{
+  margin-top:-20px;
+}
+
 .gamesetup{
   position: absolute;
   left: 50%;
@@ -100,7 +104,7 @@ input[type="number"] {
 /* Initial gamne screen */
 
 .gameplay-content {
-  margin-top: 10%;
+  margin-top: 8%;
 }
 
 .gameplay-container {
@@ -178,7 +182,7 @@ input[type="number"] {
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front-story,.flip-card-front-constraint, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -186,8 +190,21 @@ input[type="number"] {
   backface-visibility: hidden;
 }
 
-.flip-card-front {
-  background-color: red; /* Red background for the front */
+.flip-card-front-story {
+  background-image: url('/images/story-card-bg.png');
+  background-size: 100% 100%;
+  border-radius: 10px; /* Rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+}
+
+
+.flip-card-front-constraint {
+  background-image: url('/images/constraint-card-bg.png');
+  background-size: 100% 100%;
   border-radius: 10px; /* Rounded corners */
   display: flex;
   justify-content: center;

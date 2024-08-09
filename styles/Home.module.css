@@ -23,18 +23,26 @@
 
   .button {
     border: 0.4px solid aliceblue;
-    color: white;
+    color:rgb(56, 32, 8);
     padding: 0.3rem 3rem;
     border-radius: 100px;
     text-decoration: none;
+    font-weight: 200;
     font-size: 1.5rem;
+    background-color: rgba(234, 208, 174, 0.8);
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.6);
+
     /* transition: background-color 1s; */
   }
   
   .button:hover {
-    /* background-image: linear-gradient(135deg, #363553, #903775, #e8458b); */
-    background-image: linear-gradient(135deg, rgba(50, 166, 167,0.5), rgba(67, 106, 172,0.5), rgba(137, 41, 173,0.5));
+
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(226, 214, 188, 0.2), rgba(250, 243, 233, 0.8));;
     transition: background-color 1s ease-in 0.5s;
+    color:rgb(56, 32, 8);
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
+
     
   }
+  
   

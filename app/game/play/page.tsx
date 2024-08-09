@@ -90,7 +90,7 @@ const PlayGame = () => {
       if (audioRef.current) {
         audioRef.current.play();
       }
-      
+
       // Filter out the currentStory from the storyImages
       const filteredImages = storyImages.filter((image) => image !== currentStory);
 
@@ -181,6 +181,9 @@ const PlayGame = () => {
             </ul>
           </div>
         </div>
+        <div className="logo-container">
+        <a href="/" ><img src="/images/Reverie-Logo-White.png" alt="Game Logo" width="100"  /></a>
+        </div>
         <div className="score-box">
           <h2>SCORES</h2>
           <p>Team 1: {team1Score}</p>
@@ -214,8 +217,8 @@ const PlayGame = () => {
             <div className="storyClues">
               <div className={`flip-card ${storyFlipped ? 'flipped' : ''}`} onClick={() => handleCardClick('story')}>
                 <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <div className="card-back">Story Card</div>
+                  <div className="flip-card-front-story">
+
                   </div>
                   <div className="flip-card-back">
                     {currentStory && <img src={`/story-cards/${currentStory}`} alt="Story Card" className="story-image" />}
@@ -224,8 +227,8 @@ const PlayGame = () => {
               </div>
               <div className={`flip-card ${constraintFlipped ? 'flipped' : ''}`} onClick={() => handleCardClick('constraint')}>
                 <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <div className="card-back">Constraint Card</div>
+                  <div className="flip-card-front-constraint">
+
                   </div>
                   <div className="flip-card-back">
                     <div className="constraint-card">

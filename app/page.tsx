@@ -7,11 +7,11 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <Image
-        src="/images/logo.png"
+        src="/images/Reverie-Logo-White-shadow.png"
         alt="Reverie Logo"
         className={styles.logo}
-        width={600}
-        height={300}
+        width={400}
+        height={200}
       />
       <div className={styles.buttons}>
       

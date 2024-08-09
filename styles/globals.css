@@ -38,13 +38,14 @@
 } 
 */
 body {
-  background-image: url('/images/bg.gif');
+  background-image: url('/images/reverie-landscape-gif.gif');
+  /* background-image: url('/images/landscape-gif-slow.gif');  */
   background-size: cover; /* Adjusts the size of the background image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
   background-position: center center; /* Centers the background image */
   margin: 0; /* Removes default margin */
   padding: 0; /* Removes default padding */
-  height: 100vh; /* Makes sure the body takes up the full viewport height */
+  height: 110vh; /* Makes sure the body takes up the full viewport height */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: lighter;
   color:aliceblue;
@@ -60,7 +61,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(10, 9, 8, 0.9), rgba(22, 34, 51, 0.8));
+  background: linear-gradient(135deg, rgba(97, 59, 21, 0.6), rgba(2, 2, 2, 0.2));
   z-index: 1; /* Ensures the overlay is above the background image but below the content */
 }
 
@@ -135,3 +136,21 @@ body > * {
   background-image: linear-gradient(135deg, rgba(50, 166, 167,0.5), rgba(67, 106, 172,0.5), rgba(137, 41, 173,0.5));
 }
 
+/* 
+.gamemode button{
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 0.4px solid aliceblue;
+  color: white;
+  padding: 0.3rem 3rem;
+  border-radius: 100px;
+}
+
+.gamemode button:hover{
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(226, 214, 188, 0.5), rgba(255, 252, 232, 0.5));
+  transition: background-color 1s ease-in 0.5s;
+}
+
+.selected-button{
+  background-image: linear-gradient(135deg, rgba(50, 166, 167,0.5), rgba(67, 106, 172,0.5), rgba(137, 41, 173,0.5));
+} */
