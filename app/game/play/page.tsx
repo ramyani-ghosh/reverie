@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import "../../../styles/game.css";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 const PlayGame = () => {
   const searchParams = useSearchParams();
@@ -111,7 +112,7 @@ const PlayGame = () => {
 
     // Check win condition
     const isGameOver = 
-      (winCondition === 'points' && (team1Score >= pointsToWin-1 || team2Score >= pointsToWin-1)) ||
+      (winCondition === 'points' && (team1Score >= pointsToWin-1 || team2Score >= pointsToWin)) ||
       (winCondition === 'rounds' && team2TurnIndex >= rounds);
 
     if (isGameOver) {
@@ -201,7 +202,7 @@ const PlayGame = () => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className = "storyPhase">
             <div className="storyClues">
               <div className={`flip-card ${storyFlipped ? 'flipped' : ''}`} onClick={() => handleCardClick('story')}>
                 <div className="flip-card-inner">
@@ -227,6 +228,17 @@ const PlayGame = () => {
               </div>
             </div>
             <button className="ready-button" onClick={handleReadyGuessing}>Ready with clue</button>
+            <div className="timer-container">
+                <CountdownCircleTimer
+                  isPlaying
+                  duration={45}
+                  colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                  colorsTime={[45, 20, 5, 0]}
+                  onComplete={ handleReadyGuessing}
+                >
+                  {({ remainingTime }) => <p>{remainingTime} seconds remaining</p>}
+                </CountdownCircleTimer>
+              </div>
           </div>
         )}
       </div>

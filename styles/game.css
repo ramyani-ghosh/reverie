@@ -233,6 +233,17 @@ input[type="number"] {
 }
 
 
+.timer-container {
+  position: relative;
+  margin-left:120%;
+  margin-top:-40%;
+  width:60px;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+
 /* Guessing section */
 
 
