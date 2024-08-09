@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import "../../../styles/game.css";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
@@ -27,6 +27,8 @@ const PlayGame = () => {
   const [winCondition, setWinCondition] = useState<'points' | 'rounds'>('points');
   const [pointsToWin, setPointsToWin] = useState<number>(10);
   const [rounds, setRounds] = useState<number>(15);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
 
 
   useEffect(() => {
@@ -83,7 +85,12 @@ const PlayGame = () => {
 
   // Handle the Ready with clue button click to move to the guessing phase
   const handleReadyGuessing = () => {
+  
     if (currentStory && storyImages.length) {
+      if (audioRef.current) {
+        audioRef.current.play();
+      }
+      
       // Filter out the currentStory from the storyImages
       const filteredImages = storyImages.filter((image) => image !== currentStory);
 
@@ -94,6 +101,7 @@ const PlayGame = () => {
       setGuessingCards(cards);
       setIsGuessing(true); // Move to guessing phase
       setStoryFlipped(false); // Ensure story card is unflipped for the next phase
+      
     }
   };
 
@@ -231,17 +239,19 @@ const PlayGame = () => {
             <div className="timer-container">
                 <CountdownCircleTimer
                   isPlaying
-                  duration={45}
+                  duration={30}
                   colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                  colorsTime={[45, 20, 5, 0]}
+                  colorsTime={[30, 10, 5, 0]}
                   onComplete={ handleReadyGuessing}
                 >
                   {({ remainingTime }) => <p>{remainingTime} seconds remaining</p>}
                 </CountdownCircleTimer>
+                
               </div>
           </div>
         )}
       </div>
+      <audio ref={audioRef} src="/audio/times-up.mp3" />
     </div>
   );
 };
