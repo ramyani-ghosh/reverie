@@ -182,7 +182,7 @@ const PlayGame = () => {
           </div>
         </div>
         <div className="logo-container">
-        <a href="/" ><img src="/images/Reverie-Logo-White.png" alt="Game Logo" width="100"  /></a>
+        <a href="/" ><img src="/images/Reverie-Logo-Mixed.png" alt="Game Logo" width="100"  /></a>
         </div>
         <div className="score-box">
           <h2>SCORES</h2>

@@ -72,7 +72,7 @@ const GamePage = () => {
   return (
     <div className="page-gamesetup">
       <header className="header">
-        <a href="/" ><img src="/images/Reverie-Logo-White.png" alt="Game Logo" width="180" height="100" /></a>  
+        <a href="/" ><img src="/images/Reverie-Logo-Mixed.png" alt="Game Logo" width="180" height="100" /></a>  
       </header>
 
       <div className="gamesetup"> 

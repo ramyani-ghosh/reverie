@@ -1,8 +1,45 @@
 
-/* Game Setup Screen */
-body{
-  background: linear-gradient(0deg, rgb(10, 11, 14), rgb(23, 25, 32), rgb(10, 11, 14));
-  height:300vh;
+
+body {
+  background-image: url('/images/reverie-landscape.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat; 
+  margin: 0; 
+  padding: 0;
+  height: 120vh; 
+  width:100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: lighter;
+  color:aliceblue;
+  position: relative; 
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgb(27, 9, 2), rgba(65, 29, 14, 0.7));
+  z-index: 1;
+  pointer-events: none;
+
+  /* Adding the animation */
+  animation: moveGradient 10s ease infinite;
+}
+
+/* Keyframes for the moving gradient */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .input{
@@ -12,10 +49,8 @@ body{
 .header{
   height: 90px;
   width: 120%;
-
   margin-top: -40px;
-  margin-left: -50px;
-
+  margin-left: -30px;
 }
 
 .header img{
@@ -48,11 +83,10 @@ body{
 
 }
 
-.gamemode-button{
+/* .gamemode-button{
   margin:20px;
-  border: 0.4px solid aliceblue;
   color: white;
-  padding: 0.3rem 3rem;
+  padding: 0.3rem 2rem;
   border-radius: 100px;
   font-weight: 400;
 }
@@ -64,7 +98,7 @@ body{
 
 .selected-button{
   background-image: linear-gradient(135deg, rgba(50, 166, 167,0.7), rgba(67, 106, 172,0.7), rgba(137, 41, 173,0.7));
-}
+} */
 
 .name-input{
   width:40%;
